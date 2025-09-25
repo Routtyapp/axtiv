@@ -1,12 +1,18 @@
 import Auth from './components/Auth'
 import './App.css'
+import { BrowserRouter, Route, Routes } from 'react-router'
+import Home from './components/Home'
+import Test from './components/Test'
 
 function App() {
   return (
-    <div className="App">
-      <h1>Axtiv - 소셜 로그인 데모</h1>
-      <Auth />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/login" element={<Auth />} />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

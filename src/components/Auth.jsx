@@ -7,8 +7,11 @@ export default function Auth() {
 
   useEffect(() => {
     const getSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
+      const { data: User, error: UserError } = await supabase
+        .from("User")
+        .select("*")
+      // setUser(session?.user ?? null)
+      console.log(User, UserError)
       setLoading(false)
     }
 
@@ -24,12 +27,13 @@ export default function Auth() {
   }, [])
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data: User, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: 'https://nhvhujoentbvkgpanwwg.supabase.co/auth/v1/callback'
       }
     })
+
     if (error) {
       console.error('Error logging in:', error.message)
     }
